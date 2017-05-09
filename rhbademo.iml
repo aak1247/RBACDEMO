@@ -82,5 +82,8 @@
     <orderEntry type="library" name="Maven: org.mongodb:bson:3.4.1" level="project" />
     <orderEntry type="library" name="Maven: javax.mail:mail:1.5.0-b01" level="project" />
     <orderEntry type="library" name="Maven: javax.activation:activation:1.1" level="project" />
+    <orderEntry type="library" name="tether" level="application" />
+    <orderEntry type="library" name="bootstrap" level="application" />
+    <orderEntry type="library" name="jquery.slim" level="application" />
   </component>
 </module>
