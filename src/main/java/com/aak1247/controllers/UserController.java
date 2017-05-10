@@ -33,10 +33,11 @@ public class UserController {
     public ResponseEntity signin(@RequestBody Passport passport, HttpSession httpSession){
         User curUser = userRepository.findOneByUsername(passport.username);
         if (curUser == null||!curUser.isRightPassword(passport.password)){
+            System.out.println(passport.username+","+passport.password);
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         httpSession.setAttribute("userId",curUser.getUserId());
 //        httpSession.setAttribute("role",);
-        return null;
+        return new ResponseEntity<>(curUser, HttpStatus.OK);
     }
 }

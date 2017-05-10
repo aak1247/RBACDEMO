@@ -7,5 +7,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  * @author  aak12 on 2017/5/10.
  */
 public interface RoleRepository extends MongoRepository<Role,String>{
-    Role findOneByName(String roleName);
+    Role findOneByRoleName(String roleName);
 }
