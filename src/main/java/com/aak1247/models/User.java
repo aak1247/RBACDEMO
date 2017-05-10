@@ -37,23 +37,22 @@ public class User {
     }
 
 
-
     public void setPassword(String password) {
         try {
             MessageDigest messageDigest = MessageDigest.getInstance("SHA1");
             messageDigest.update(password.getBytes());
             this.password = encode(messageDigest.digest());
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public boolean isRightPassword(String pwd){
+    public boolean isRightPassword(String pwd) {
         try {
             MessageDigest messageDigest = MessageDigest.getInstance("SHA1");
             messageDigest.update(pwd.getBytes());
             pwd = encode(messageDigest.digest());
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return pwd.equals(this.password);
@@ -67,18 +66,18 @@ public class User {
         this.roleList = roleList;
     }
 
-    public void addRole(String roleId){
-        if (this.roleList.contains(roleId))return;
+    public void addRole(String roleId) {
+        if (this.roleList.contains(roleId)) return;
         this.roleList.add(roleId);
     }
 
-    public void deleteRole (String roleId){
-        if (this.roleList.contains(roleId)){
+    public void deleteRole(String roleId) {
+        if (this.roleList.contains(roleId)) {
             this.roleList.remove(roleId);
         }
     }
 
-    public boolean hasRole (String roleId){
+    public boolean hasRole(String roleId) {
         return this.roleList.contains(roleId);
     }
 }

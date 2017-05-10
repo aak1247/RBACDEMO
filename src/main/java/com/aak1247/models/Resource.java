@@ -4,13 +4,23 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
- * @author  aak12 on 2017/5/10.
+ * @author aak12 on 2017/5/10.
  */
 @Document(collection = "resources")
 public class Resource {
     @Id
     private String id;
+    private String title;
     private Object resourceBody;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     private String target;
     private String content;
     private String url;

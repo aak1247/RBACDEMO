@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 public class PageController {
-    @RequestMapping(value = "/hello",method = RequestMethod.GET)
-    public String hello(@RequestParam(value="name", required=false, defaultValue="World") String name, Model model){
-        model.addAttribute("name",name);
+    @RequestMapping(value = "/hello", method = RequestMethod.GET)
+    public String hello(@RequestParam(value = "name", required = false, defaultValue = "World") String name, Model model) {
+        model.addAttribute("name", name);
         return "hello";
     }
 }

@@ -25,14 +25,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 import static org.junit.Assert.assertNotNull;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 /**
- * @author  DDHEE on 2017/3/14.
+ * @author DDHEE on 2017/3/14.
  */
 
 /**
@@ -71,6 +70,7 @@ public class UserTest {
 
     @Autowired
     private WebApplicationContext webApplicationContext;
+    private Passport testUserPassport = new Passport();
 
     @Autowired
     void setConverters(HttpMessageConverter<?>[] converters) {
@@ -84,10 +84,8 @@ public class UserTest {
                 this.mappingJackson2HttpMessageConverter);
     }
 
-    private Passport testUserPassport = new Passport() ;
-
     @Before
-    public void validUser () throws Exception {
+    public void validUser() throws Exception {
         this.mockMvc = webAppContextSetup(webApplicationContext).build();//加载上下文
         testUserPassport.username = usernameValid;
         testUserPassport.password = passwordValid;
@@ -124,14 +122,8 @@ public class UserTest {
     }
 
 
-
-
-
-
-
-
     @After
-    public void clear(){//去除加入的数据
+    public void clear() {//去除加入的数据
         userRepository.deleteAll();
     }
 

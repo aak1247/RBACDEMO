@@ -11,7 +11,7 @@
     <!--<link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css">-->
     <script src="./js/jquery.min.js"></script>
     <script src="./js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="./css/bootstrap.addtabs.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="./css/bootstrap.addtabs.css" type="text/css" media="screen"/>
     <script src="./js/bootstrap.addtabs.min.js" type="application/javascript"></script>
     <script src="./js/bootstrap-switch.min.js" type="application/javascript"></script>
     <script type="text/javascript">
@@ -28,9 +28,89 @@
 <body>
 <div class="container">
     <div class="page-header">
-
-
+        <!--注册登录-->
+        <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#signup" id="signup-btn">注册</button>
+        <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#signin" id="signin-btn">登陆</button>
+        <!-- 模态框（Modal） -->
+        <div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="signupLabe" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="signupLabe">注册</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label for="username" class="col-sm-2 control-label">用户名</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="username" placeholder="请输入用户名" name="username">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="col-sm-2 control-label">密码</label>
+                                <div class="col-sm-10">
+                                    <input type="password" class="form-control" id="password" placeholder="请输入密码" name="password">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password_conform" class="col-sm-2 control-label">确认密码</label>
+                                <div class="col-sm-10">
+                                    <input type="password" class="form-control" id="password_conform" placeholder="请确认密码">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="button" class="btn btn-default" onclick="signup()" data-dismiss="modal">注册</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
     </div>
+    <div class="modal fade" id="signin" tabindex="-1" role="dialog" aria-labelledby="signinLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="signinLabel">登陆</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label">用户名</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="sign_username" placeholder="请输入用户名" name="username">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="col-sm-2 control-label">密码</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" id="sign_password" placeholder="请输入密码" name="password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox">请记住我
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-default" onclick="signin()">登录</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+</div>
     <div class="row">
         <div class="col-sm-9">
             <h4>
@@ -40,45 +120,14 @@
             <div class="panel panel-default">
                 <div class="switch" data-on="info" data-off="success">
                     <h5 style="float: left;margin-left: 10px;margin-right: 10px">
-                    是否启用管理员角色
+                        是否启用管理员角色
                     </h5>
-                    <input type="checkbox" name="my-checkbox" checked style="float: left;margin-top: 4px" />
+                    <input type="checkbox" name="my-checkbox" checked style="float: left;margin-top: 4px"/>
                 </div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-sm-2">
-                            <ul class="list-group">
-                                <a class="list-group-item" data-addtab="mail" data-url="example/ajax/mailbox.txt">
-                                    mailbox
-                                </a>
-                                <a class="list-group-item" data-addtab="mail1" data-ajax="true" data-url="example/ajax/mailbox.txt">
-                                    Use Ajax
-                                </a>
-                                <a class="list-group-item" data-addtab="message" data-content="Customize the content" data-url="example/ajax/mailbox.txt">
-                                    <i class="glyphicon glyphicon-bullhorn">
-                                    </i>
-                                    指定内容
-                                </a>
-                                <a class="list-group-item" data-addtab="setting" data-title="Customize the title" data-url="example/ajax/mailbox.txt">
-                                    <i class="glyphicon glyphicon-cog">
-                                    </i>
-                                    指定标题
-                                </a>
-                                <a class="list-group-item" data-addtab="userMenu1" data-url="example/ajax/mailbox.txt">
-                                    用户菜单1
-                                </a>
-                                <a class="list-group-item" data-addtab="userMenu2" data-target="#tabs2" data-url="example/ajax/button.html">
-                                    target2
-                                </a>
-                                <a class="list-group-item" data-addtab="sina" data-url="http://sina.com.cn">
-                                    新浪
-                                </a>
-                                <a class="list-group-item" data-addtab="baidu" data-url="http://baidu.com">
-                                    百度
-                                </a>
-                                <a class="list-group-item" id="closeAll">
-                                    关闭所有
-                                </a>
+                            <ul class="list-group" id="resource-container">
                             </ul>
                         </div>
                         <div class="col-sm-10">
@@ -106,24 +155,70 @@
     </div>
 </div>
 <script>
+    user={};
     $("[name='my-checkbox']").bootstrapSwitch();
     $(document).ready(function () {
-    $.get("http://localhost:8080/rest/user/hasRole",{"role":"admin"},function (data,status) {
-        alert("???");
-        alert(data+"  "+status);
-        if(status!=200){
-            alert("not ok");
-            return;
-        }
-        if(data==false){
-            alert("fff");
-            $("[name='my-checkbox']").disabled=true;
-        }else {
-            alert("ccc");
-            $("[name='my-checkbox']").disabled=false;
-        }
+        $.get("http://localhost:8080/rest/user/hasRole", {"roleName": "admin"}, function (data, status) {
+            alert("???");
+            alert(data + "  " + status);
+            if (status != 200) {
+                alert("not ok");
+                return;
+            }
+            if (data == false) {
+                alert("fff");
+                $("[name='my-checkbox']").disabled = true;
+            } else {
+                alert("ccc");
+                $("[name='my-checkbox']").disabled = false;
+            }
+        });
     });
-    });
+    function signup() {
+        $.ajax({
+            type:"POST",
+            url:"http://localhost:8080/rest/user/signup",
+            contentType:"application/json",
+            dataTye:"json",
+            data:JSON.stringify({
+                "username":$("#username").val(),
+                "password":$("#password").val()
+            }),
+            success:function (data) {
+                user=data;
+            }
+        });
+    }
+
+    function signin() {
+        alert("signin");
+        $.ajax({
+            type:"POST",
+            url:"http://localhost:8080/rest/user/signin",
+            contentType:"application/json",
+            dataTye:"json",
+            data:JSON.stringify({
+                "username": "\"\""+$("#sign_username").val()+"\"\"",
+                "password": "\""+$("#sign_password").val()+"\""
+            }),
+            success:function (data) {
+                user=data;
+            }
+        });
+    }
+    function showAndHide() {
+        if(user.username!=null){
+            $("#signup-btn").hide();
+            $("#signin-btn").hide();
+        }
+        resources=[];
+        $.get("http://localhost:8080/rest/resource/get",function (data,status) {
+            resources=data;
+        })
+        for(resource in resources){
+            $("#resource-container").append("\<a class=\"list-group-item\" data-addtab="+resources+"\>"+resources.title+"\</a\>")
+        }
+    }
 </script>
 </body>
 </html>
