@@ -22,7 +22,6 @@ public class User {
     private String username;
     @NotNull
     private String password;
-
     private List<String> roleList;
 
     public String getUserId() {
@@ -77,5 +76,9 @@ public class User {
         if (this.roleList.contains(roleId)){
             this.roleList.remove(roleId);
         }
+    }
+
+    public boolean hasRole (String roleId){
+        return this.roleList.contains(roleId);
     }
 }
