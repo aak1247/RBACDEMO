@@ -7,6 +7,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.validation.constraints.NotNull;
 import java.security.MessageDigest;
 
+import static com.sun.org.apache.xerces.internal.impl.dv.util.HexBin.encode;
+
 /**
  * @author aak12 on 2017/5/10.
  */
@@ -36,15 +38,22 @@ public class User {
 
     public void setPassword(String password) {
         try {
-            MessageDigest messageDigest = MessageDigest.getInstance("MD-5");
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA1");
             messageDigest.update(password.getBytes());
+            this.password = encode(messageDigest.digest());
         }catch (Exception e){
             e.printStackTrace();
         }
-        this.password = password;
     }
 
     public boolean isRightPassword(String pwd){
-        return pwd.equalsIgnoreCase(this.toString());
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA1");
+            messageDigest.update(pwd.getBytes());
+            pwd = encode(messageDigest.digest());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return pwd.equals(this.password);
     }
 }
