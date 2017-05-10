@@ -11,6 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author  aak12 on 2017/5/10.
@@ -28,6 +31,7 @@ public class UserController {
     }
     @RequestMapping(value = "signup", method = RequestMethod.POST)
     public ResponseEntity signup(@RequestBody User user){
+        if (userRepository.findOneByUsername(user.getUsername())!=null)return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         userRepository.insert(user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
@@ -39,16 +43,17 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         httpSession.setAttribute("userId",curUser.getUserId());
-//        httpSession.setAttribute("role",);
+        httpSession.setAttribute("role",roleRepository.findOneByRoleName("user").getRoleId());
         return new ResponseEntity<>(curUser, HttpStatus.OK);
     }
     @RequestMapping(value = "/hasRole", method = RequestMethod.GET)
-    public ResponseEntity hasRole(@RequestParam User user, HttpSession httpSession){
+    public ResponseEntity hasRole(@RequestParam String roleName, HttpSession httpSession){
         if (httpSession.getAttribute("userId")==null){
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
-        User userFound = userRepository.findOneByUsername(user.getUsername());
-        return new ResponseEntity<>(userFound.hasRole(user.getRoleList().get(0)),HttpStatus.OK);
+        User user = userRepository.findOne(httpSession.getAttribute("userId").toString());
+        if (user==null)return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(user.hasRole(roleRepository.findOneByRoleName(roleName).getRoleName()),HttpStatus.OK);
     }
     @RequestMapping(value = "/manage",method = RequestMethod.POST)
     public ResponseEntity manage(@RequestBody User user, HttpSession httpSession){
@@ -58,8 +63,8 @@ public class UserController {
         Role currRole = roleRepository.findOne(roleId);
         if (currRole==null||!currRole.getRoleName().equals("admin"))return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         User userFound = userRepository.findOne(user.getUserId());
-        userFound.setRoleList(user.getRoleList());
-        userRepository.save(user);
+        userFound.getRoleList().addAll(user.getRoleList());
+        userRepository.save(userFound);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
