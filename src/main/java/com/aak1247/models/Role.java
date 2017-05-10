@@ -3,7 +3,7 @@ package com.aak1247.models;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * @author C aak12 on 2017/5/10.
@@ -13,7 +13,7 @@ public class Role {
     @Id
     private String roleId;
     private String roleName;
-    private List<String> PermissionList;
+    private Set<String> ResourceList;
 
     public String getRoleId() {
         return roleId;
@@ -31,11 +31,11 @@ public class Role {
         this.roleName = roleName;
     }
 
-    public List<String> getPermissionList() {
-        return PermissionList;
+    public Set<String> getResourceList() {
+        return ResourceList;
     }
 
-    public void setPermissionList(List<String> permissionList) {
-        PermissionList = permissionList;
+    public void setResourceList(Set<String> permissionList) {
+        ResourceList = permissionList;
     }
 }

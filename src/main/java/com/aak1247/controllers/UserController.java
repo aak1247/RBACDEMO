@@ -3,6 +3,7 @@ package com.aak1247.controllers;
 import com.aak1247.models.Passport;
 import com.aak1247.models.Role;
 import com.aak1247.models.User;
+import com.aak1247.repositories.RoleRepository;
 import com.aak1247.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,9 +19,12 @@ import javax.servlet.http.HttpSession;
 @RequestMapping(value = "/rest/user")
 public class UserController {
     private UserRepository userRepository;
+    private RoleRepository roleRepository;
     @Autowired
-    public UserController(UserRepository userRepository){
+    public UserController(UserRepository userRepository,
+                          RoleRepository roleRepository){
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
     }
     @RequestMapping(value = "signup", method = RequestMethod.POST)
     public ResponseEntity signup(@RequestBody User user){
@@ -38,7 +42,7 @@ public class UserController {
 //        httpSession.setAttribute("role",);
         return new ResponseEntity<>(curUser, HttpStatus.OK);
     }
-    @RequestMapping(value = "/hasRole")
+    @RequestMapping(value = "/hasRole", method = RequestMethod.GET)
     public ResponseEntity hasRole(@RequestParam User user, HttpSession httpSession){
         if (httpSession.getAttribute("userId")==null){
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
@@ -46,6 +50,17 @@ public class UserController {
         User userFound = userRepository.findOneByUsername(user.getUsername());
         return new ResponseEntity<>(userFound.hasRole(user.getRoleList().get(0)),HttpStatus.OK);
     }
-
+    @RequestMapping(value = "/manage",method = RequestMethod.POST)
+    public ResponseEntity manage(@RequestBody User user, HttpSession httpSession){
+        if (httpSession.getAttribute("userId")==null)return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        String roleId = httpSession.getAttribute("role").toString();
+        if (roleId==null)return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        Role currRole = roleRepository.findOne(roleId);
+        if (currRole==null||!currRole.getRoleName().equals("admin"))return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        User userFound = userRepository.findOne(user.getUserId());
+        userFound.setRoleList(user.getRoleList());
+        userRepository.save(user);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }

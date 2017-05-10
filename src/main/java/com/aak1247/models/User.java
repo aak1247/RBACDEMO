@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
 import java.security.MessageDigest;
-import java.util.List;
+import java.util.Set;
 
 import static com.sun.org.apache.xerces.internal.impl.dv.util.HexBin.encode;
 
@@ -22,7 +22,7 @@ public class User {
     private String username;
     @NotNull
     private String password;
-    private List<String> roleList;
+    private Set<String> roleList;
 
     public String getUserId() {
         return userId;
@@ -59,11 +59,11 @@ public class User {
         return pwd.equals(this.password);
     }
 
-    public List<String> getRoleList() {
+    public Set<String> getRoleList() {
         return roleList;
     }
 
-    public void setRoleList(List<String> roleList) {
+    public void setRoleList(Set<String> roleList) {
         this.roleList = roleList;
     }
 

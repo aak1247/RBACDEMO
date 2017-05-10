@@ -2,15 +2,116 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="" name="description"/>
+    <meta content="" name="keywords"/>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+    <link rel="stylesheet" href="./css/bootstrap.min.css" type="text/css">
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdn.bootcss.com/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./css/bootstrap.addtabs.css" type="text/css" media="screen" />
+    <script src="./js/bootstrap.addtabs.min.js" type="application/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#closeAll').click(function () {
+                console.log('1');
+                $.addtabs.closeAll('#tabs1');
+            })
+        })
+    </script>
+
     <title>greeting</title>
 </head>
 <body>
+<div class="container">
+    <div class="page-header">
 
 
+    </div>
+    <div class="row">
+        <div class="col-sm-9">
+            <h4>
+                RBAC
+            </h4>
+            <hr>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <ul class="list-group">
+                                <a class="list-group-item" data-addtab="mail" data-url="example/ajax/mailbox.txt">
+                                    mailbox
+                                </a>
+                                <a class="list-group-item" data-addtab="mail1" data-ajax="true" data-url="example/ajax/mailbox.txt">
+                                    Use Ajax
+                                </a>
+                                <a class="list-group-item" data-addtab="message" data-content="Customize the content" data-url="example/ajax/mailbox.txt">
+                                    <i class="glyphicon glyphicon-bullhorn">
+                                    </i>
+                                    指定内容
+                                </a>
+                                <a class="list-group-item" data-addtab="setting" data-title="Customize the title" data-url="example/ajax/mailbox.txt">
+                                    <i class="glyphicon glyphicon-cog">
+                                    </i>
+                                    指定标题
+                                </a>
+                                <a class="list-group-item" data-addtab="userMenu1" data-url="example/ajax/mailbox.txt">
+                                    用户菜单1
+                                </a>
+                                <a class="list-group-item" data-addtab="userMenu2" data-target="#tabs2" data-url="example/ajax/button.html">
+                                    target2
+                                </a>
+                                <a class="list-group-item" data-addtab="sina" data-url="http://sina.com.cn">
+                                    新浪
+                                </a>
+                                <a class="list-group-item" data-addtab="baidu" data-url="http://baidu.com">
+                                    百度
+                                </a>
+                                <a class="list-group-item" id="closeAll">
+                                    关闭所有
+                                </a>
+                            </ul>
+                        </div>
+                        <div class="col-sm-10">
+                            <div>
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" id="tabs1" role="tablist">
+                                    <li class="active" role="presentation">
+                                        <a aria-controls="home" data-toggle="tab" href="#home" role="tab">
+                                            Home
+                                        </a>
+                                    </li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="home" role="tabpanel">
+                                        I'm a homepage.
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" id="tabs2" role="tablist">
+                                    <li class="active" role="presentation">
+                                        <a aria-controls="home1" data-toggle="tab" href="#home1" role="tab">
+                                            Home
+                                        </a>
+                                    </li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="home1" role="tabpanel">
+                                        I'm a homepage.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
