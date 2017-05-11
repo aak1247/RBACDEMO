@@ -165,10 +165,10 @@
         $.get("http://localhost:8080/rest/user/hasRole", {"roleName": "admin"}, function (data, status) {
             console.log(data+" "+status);
             if (data == false) {
-                alert("false");
+//                alert("false");
                 $("#isAdmin").attr("disabled");
             } else {
-                alert("true");
+//                alert("true");
                 $("#isAdmin").removeAttr("disabled");
             }
         });
@@ -193,7 +193,7 @@
     }
 
     function signin() {
-        alert("signin");
+//        alert("signin");
         $.ajax({
             type:"POST",
             url:"http://localhost:8080/rest/user/signin",
@@ -223,25 +223,24 @@
         }else {
             $("#signup-btn").show();
             $("#signin-btn").show();
+            $.post("localhost:8080/rest/user/init",function (data,status) {
+                console.log("init done");
+            })
         }
         $.get("http://localhost:8080/rest/resource/get",function (data,status) {
             resources=data;
 //            console.log(resources);
         });
-//        for(let resource in resources){
-//            $("#resource-container").append("\<a class=\"list-group-item\" data-addtab="+resources+"\>"+resources.title+"\</a\>");
-//            $("#resource-container").append(resource);
-//            console.log(resource);
-//        }
         console.log(resources.length);
         console.log(resources);
+        $("#resource-container").empty();
         for(let i=0;i<=resources.length;++i){
             console.log(i);
             $("#resource-container").append("\<a class=\"list-group-item\" data-addtab="+JSON.stringify(resources[i])+"\>"+resources[i].title+"\</a\>");
         }
     }
     function enableAdmin() {
-        alert("enableAdmin");
+//        alert("enableAdmin");
         var dataToPost={};
         console.log($("#isAdmin").prop("checked"));
         if ($("#isAdmin").prop("checked")){
@@ -265,7 +264,6 @@
                 showAndHide();
             }
         });
-        $("#resource-container").empty();
         showAndHide();
     }
     $(document).ready(function () {

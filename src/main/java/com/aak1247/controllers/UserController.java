@@ -86,7 +86,7 @@ public class UserController {
 
     @RequestMapping("/curRole")
     public ResponseEntity getCurRole(HttpSession httpSession ){
-        if (httpSession.getAttribute("userId") == null) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+//        if (httpSession.getAttribute("userId") == null) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         String roleId = httpSession.getAttribute("role").toString();
         if (roleId == null) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         Role currRole = roleRepository.findOne(roleId);
@@ -104,5 +104,11 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         List<User> users = userRepository.findAll();
         return new ResponseEntity<>(users,HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/init",method = RequestMethod.POST)
+    public ResponseEntity init(HttpSession httpSession){
+        httpSession.setAttribute("role",roleRepository.findOneByRoleName("guest").getRoleId());
+        return new ResponseEntity(HttpStatus.OK);
     }
 }
