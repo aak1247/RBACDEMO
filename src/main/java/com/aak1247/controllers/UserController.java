@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @author aak12 on 2017/5/10.
@@ -50,6 +51,15 @@ public class UserController {
         return new ResponseEntity<>(curUser, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/hasSign",method = RequestMethod.GET)
+    public ResponseEntity hasSign(HttpSession httpSession){
+        System.out.println(httpSession.getAttributeNames());
+        System.out.println(httpSession.getAttribute("userId"));
+        System.out.println(httpSession.getAttribute("role"));
+        boolean flag = httpSession.getAttribute("userId")!=null;
+        System.out.println(flag);
+        return new ResponseEntity<>(flag,HttpStatus.OK);
+    }
     @RequestMapping(value = "/hasRole", method = RequestMethod.GET)
     public ResponseEntity hasRole(@RequestParam String roleName, HttpSession httpSession) {
         if (httpSession.getAttribute("userId") == null) {
@@ -57,7 +67,7 @@ public class UserController {
         }
         User user = userRepository.findOne(httpSession.getAttribute("userId").toString());
         if (user == null) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        return new ResponseEntity<>(user.hasRole(roleRepository.findOneByRoleName(roleName).getRoleName()), HttpStatus.OK);
+        return new ResponseEntity<>(user.hasRole(roleRepository.findOneByRoleName(roleName).getRoleId()), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/manage", method = RequestMethod.POST)
@@ -74,4 +84,25 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @RequestMapping("/curRole")
+    public ResponseEntity getCurRole(HttpSession httpSession ){
+        if (httpSession.getAttribute("userId") == null) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        String roleId = httpSession.getAttribute("role").toString();
+        if (roleId == null) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        Role currRole = roleRepository.findOne(roleId);
+        System.out.println(currRole.getRoleName());
+        return new ResponseEntity<>(currRole,HttpStatus.OK);
+    }
+
+    @RequestMapping("/showUsers")
+    public ResponseEntity showUsers(HttpSession httpSession){
+        if (httpSession.getAttribute("userId") == null) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        String roleId = httpSession.getAttribute("role").toString();
+        if (roleId == null) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        Role currRole = roleRepository.findOne(roleId);
+        if (currRole == null || !currRole.getRoleName().equals("admin"))
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        List<User> users = userRepository.findAll();
+        return new ResponseEntity<>(users,HttpStatus.OK);
+    }
 }

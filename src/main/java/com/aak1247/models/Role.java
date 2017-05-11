@@ -3,6 +3,7 @@ package com.aak1247.models;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -13,7 +14,7 @@ public class Role {
     @Id
     private String roleId;
     private String roleName;
-    private Set<String> ResourceList;
+    private Set<String> ResourceList = new HashSet<>();
 
     public String getRoleId() {
         return roleId;

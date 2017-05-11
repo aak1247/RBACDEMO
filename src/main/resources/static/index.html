@@ -102,7 +102,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-default" onclick="signin()">登录</button>
+                                <button type="button" class="btn btn-default" onclick="signin()"  data-dismiss="modal">登录</button>
                             </div>
                         </div>
                     </form>
@@ -122,12 +122,15 @@
                     <h5 style="float: left;margin-left: 10px;margin-right: 10px">
                         是否启用管理员角色
                     </h5>
-                    <input type="checkbox" name="my-checkbox" checked style="float: left;margin-top: 4px"/>
+                    <input type="checkbox" name="isAdmin" id="isAdmin" checked="false" style="float: left;margin-top: 4px" onchange="enableAdmin()"/>
                 </div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-sm-2">
                             <ul class="list-group" id="resource-container">
+                                <!--<a aria-controls="baidu" data-toggle="tab" href="javascript:void(0)" role="tab" onclick="getRole()">-->
+                                    <!--当前角色-->
+                                <!--</a>-->
                             </ul>
                         </div>
                         <div class="col-sm-10">
@@ -138,6 +141,7 @@
                                         <a aria-controls="home" data-toggle="tab" href="#home" role="tab">
                                             Home
                                         </a>
+
                                     </li>
                                 </ul>
                                 <!-- Tab panes -->
@@ -155,26 +159,23 @@
     </div>
 </div>
 <script>
-    user={};
-    $("[name='my-checkbox']").bootstrapSwitch();
-    $(document).ready(function () {
+    let user={};
+    $("[name='isAdmin']").bootstrapSwitch();
+    function hasAdmin() {
         $.get("http://localhost:8080/rest/user/hasRole", {"roleName": "admin"}, function (data, status) {
-            alert("???");
-            alert(data + "  " + status);
-            if (status != 200) {
-                alert("not ok");
-                return;
-            }
+            console.log(data+" "+status);
             if (data == false) {
-                alert("fff");
-                $("[name='my-checkbox']").disabled = true;
+                alert("false");
+                $("#isAdmin").attr("disabled");
             } else {
-                alert("ccc");
-                $("[name='my-checkbox']").disabled = false;
+                alert("true");
+                $("#isAdmin").removeAttr("disabled");
             }
         });
-    });
+    }
     function signup() {
+
+
         $.ajax({
             type:"POST",
             url:"http://localhost:8080/rest/user/signup",
@@ -186,6 +187,7 @@
             }),
             success:function (data) {
                 user=data;
+                hasAdmin();
             }
         });
     }
@@ -198,26 +200,82 @@
             contentType:"application/json",
             dataTye:"json",
             data:JSON.stringify({
-                "username": "\"\""+$("#sign_username").val()+"\"\"",
-                "password": "\""+$("#sign_password").val()+"\""
+                "username": $("#sign_username").val(),
+                "password": $("#sign_password").val()
             }),
             success:function (data) {
                 user=data;
+                hasAdmin();
+                showAndHide();
             }
         });
     }
     function showAndHide() {
-        if(user.username!=null){
+        $.get("http://localhost:8080/rest/user/hasSign", function (data,status) {
+//            alert(data+"  "+status);
+            flag=data;
+        });
+//        alert(flag);
+//        alert("flag"+flag);
+        if(flag ){
             $("#signup-btn").hide();
             $("#signin-btn").hide();
+        }else {
+            $("#signup-btn").show();
+            $("#signin-btn").show();
         }
-        resources=[];
         $.get("http://localhost:8080/rest/resource/get",function (data,status) {
             resources=data;
-        })
-        for(resource in resources){
-            $("#resource-container").append("\<a class=\"list-group-item\" data-addtab="+resources+"\>"+resources.title+"\</a\>")
+//            console.log(resources);
+        });
+//        for(let resource in resources){
+//            $("#resource-container").append("\<a class=\"list-group-item\" data-addtab="+resources+"\>"+resources.title+"\</a\>");
+//            $("#resource-container").append(resource);
+//            console.log(resource);
+//        }
+        console.log(resources.length);
+        console.log(resources);
+        for(let i=0;i<=resources.length;++i){
+            console.log(i);
+            $("#resource-container").append("\<a class=\"list-group-item\" data-addtab="+JSON.stringify(resources[i])+"\>"+resources[i].title+"\</a\>");
         }
+    }
+    function enableAdmin() {
+        alert("enableAdmin");
+        var dataToPost={};
+        console.log($("#isAdmin").prop("checked"));
+        if ($("#isAdmin").prop("checked")){
+            dataToPost = {
+                "roleName":"admin"
+            }
+        }else {
+            dataToPost = {
+                "roleName":"user"
+            }
+        }
+        $.ajax({
+            type:"POST",
+            url:"http://localhost:8080/rest/role/changeRole",
+            contentType:"application/json",
+            dataTye:"json",
+            data:JSON.stringify(dataToPost),
+            success:function (data) {
+                user=data;
+                hasAdmin();
+                showAndHide();
+            }
+        });
+        $("#resource-container").empty();
+        showAndHide();
+    }
+    $(document).ready(function () {
+        showAndHide();
+    })
+
+    function getRole() {
+        $.get("http://localhost:8080/rest/user/curRole",function (data,status) {
+            alert(data.roleName);
+        })
     }
 </script>
 </body>

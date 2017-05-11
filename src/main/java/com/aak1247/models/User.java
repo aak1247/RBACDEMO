@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
 import java.security.MessageDigest;
+import java.util.HashSet;
 import java.util.Set;
 
 import static com.sun.org.apache.xerces.internal.impl.dv.util.HexBin.encode;
@@ -22,7 +23,7 @@ public class User {
     private String username;
     @NotNull
     private String password;
-    private Set<String> roleList;
+    private Set<String> roleList = new HashSet<>();
 
     public String getUserId() {
         return userId;

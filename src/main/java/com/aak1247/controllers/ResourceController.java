@@ -38,8 +38,12 @@ public class ResourceController {
     public ResponseEntity addResource(@RequestBody Resource resource, HttpSession httpSession) {
         if (httpSession.getAttribute("userId") == null) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         User user = userRepository.findOne(httpSession.getAttribute("userId").toString());
+        System.out.println(httpSession.getAttribute("userId"));
         if (user == null) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        System.out.println(user.getUsername());
         Role role = roleRepository.findOne(httpSession.getAttribute("role").toString());
+        resourceRepository.save(resource);
+        System.out.println("resource saved");
         return null;
     }
 
