@@ -44,24 +44,29 @@
                             <div class="form-group">
                                 <label for="username" class="col-sm-2 control-label">用户名</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="username" placeholder="请输入用户名" name="username">
+                                    <input type="text" class="form-control" id="username" placeholder="请输入用户名"
+                                           name="username">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="password" class="col-sm-2 control-label">密码</label>
                                 <div class="col-sm-10">
-                                    <input type="password" class="form-control" id="password" placeholder="请输入密码" name="password">
+                                    <input type="password" class="form-control" id="password" placeholder="请输入密码"
+                                           name="password">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="password_conform" class="col-sm-2 control-label">确认密码</label>
                                 <div class="col-sm-10">
-                                    <input type="password" class="form-control" id="password_conform" placeholder="请确认密码">
+                                    <input type="password" class="form-control" id="password_conform"
+                                           placeholder="请确认密码">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="button" class="btn btn-default" onclick="signup()" data-dismiss="modal">注册</button>
+                                    <button type="button" class="btn btn-default" onclick="signup()"
+                                            data-dismiss="modal">注册
+                                    </button>
                                 </div>
                             </div>
                         </form>
@@ -82,13 +87,15 @@
                         <div class="form-group">
                             <label for="username" class="col-sm-2 control-label">用户名</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="sign_username" placeholder="请输入用户名" name="username">
+                                <input type="text" class="form-control" id="sign_username" placeholder="请输入用户名"
+                                       name="username">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="password" class="col-sm-2 control-label">密码</label>
                             <div class="col-sm-10">
-                                <input type="password" class="form-control" id="sign_password" placeholder="请输入密码" name="password">
+                                <input type="password" class="form-control" id="sign_password" placeholder="请输入密码"
+                                       name="password">
                             </div>
                         </div>
                         <div class="form-group">
@@ -102,7 +109,9 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button type="button" class="btn btn-default" onclick="signin()"  data-dismiss="modal">登录</button>
+                                <button type="button" class="btn btn-default" onclick="signin()" data-dismiss="modal">
+                                    登录
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -111,44 +120,44 @@
         </div><!-- /.modal -->
     </div>
 </div>
-    <div class="row">
-        <div class="col-sm-9">
-            <h4>
-                RBAC
-            </h4>
-            <hr>
-            <div class="panel panel-default">
-                <div class="switch" data-on="info" data-off="success">
-                    <h5 style="float: left;margin-left: 10px;margin-right: 10px">
-                        是否启用管理员角色
-                    </h5>
-                    <input type="checkbox" name="isAdmin" id="isAdmin" checked="false" style="float: left;margin-top: 4px" onchange="enableAdmin()"/>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <ul class="list-group" id="resource-container">
-                                <!--<a aria-controls="baidu" data-toggle="tab" href="javascript:void(0)" role="tab" onclick="getRole()">-->
-                                    <!--当前角色-->
-                                <!--</a>-->
-                            </ul>
-                        </div>
-                        <div class="col-sm-10">
-                            <div>
-                                <!-- Nav tabs -->
-                                <ul class="nav nav-tabs" id="tabs1" role="tablist">
-                                    <li class="active" role="presentation">
-                                        <a aria-controls="home" data-toggle="tab" href="#home" role="tab">
-                                            Home
-                                        </a>
+<div class="row">
+    <div class="col-sm-9">
+        <h4 style="text-align: center">
+            基于角色的用户权限控制系统
+        </h4>
+        <hr>
+        <div class="panel panel-default">
+            <div class="switch" data-on="info" data-off="success">
+                <h5 style="float: left;margin-left: 10px;margin-right: 10px">
+                    是否启用管理员角色
+                </h5>
+                <input type="checkbox" name="isAdmin" id="isAdmin" checked="false" style="float: left;margin-top: 4px"
+                       onchange="enableAdmin()"/>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <ul class="list-group" id="resource-container">
+                            <!--<a aria-controls="baidu" data-toggle="tab" href="javascript:void(0)" role="tab" onclick="getRole()">-->
+                            <!--当前角色-->
+                            <!--</a>-->
+                        </ul>
+                    </div>
+                    <div class="col-sm-10">
+                        <div>
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" id="tabs1" role="tablist">
+                                <li class="active" role="presentation">
+                                    <a aria-controls="home" data-toggle="tab" href="#home" role="tab">
+                                        Home
+                                    </a>
 
-                                    </li>
-                                </ul>
-                                <!-- Tab panes -->
-                                <div class="tab-content">
-                                    <div class="tab-pane active" id="home" role="tabpanel">
-                                        User homepage
-                                    </div>
+                                </li>
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="home" role="tabpanel">
+                                    User homepage
                                 </div>
                             </div>
                         </div>
@@ -158,18 +167,21 @@
         </div>
     </div>
 </div>
+</div>
 <script>
-    let user={};
+    let user = {};
     $("[name='isAdmin']").bootstrapSwitch();
     function hasAdmin() {
         $.get("http://localhost:8080/rest/user/hasRole", {"roleName": "admin"}, function (data, status) {
-            console.log(data+" "+status);
+            console.log(data + " " + status);
             if (data == false) {
 //                alert("false");
                 $("#isAdmin").attr("disabled");
+                $("#isAdmin").hide()
             } else {
 //                alert("true");
                 $("#isAdmin").removeAttr("disabled");
+                $("#isAdmin").show();
             }
         });
     }
@@ -177,16 +189,16 @@
 
 
         $.ajax({
-            type:"POST",
-            url:"http://localhost:8080/rest/user/signup",
-            contentType:"application/json",
-            dataTye:"json",
-            data:JSON.stringify({
-                "username":$("#username").val(),
-                "password":$("#password").val()
+            type: "POST",
+            url: "http://localhost:8080/rest/user/signup",
+            contentType: "application/json",
+            dataTye: "json",
+            data: JSON.stringify({
+                "username": $("#username").val(),
+                "password": $("#password").val()
             }),
-            success:function (data) {
-                user=data;
+            success: function (data) {
+                user = data;
                 hasAdmin();
             }
         });
@@ -195,71 +207,69 @@
     function signin() {
 //        alert("signin");
         $.ajax({
-            type:"POST",
-            url:"http://localhost:8080/rest/user/signin",
-            contentType:"application/json",
-            dataTye:"json",
-            data:JSON.stringify({
+            type: "POST",
+            url: "http://localhost:8080/rest/user/signin",
+            contentType: "application/json",
+            dataTye: "json",
+            data: JSON.stringify({
                 "username": $("#sign_username").val(),
                 "password": $("#sign_password").val()
             }),
-            success:function (data) {
-                user=data;
+            success: function (data) {
+                user = data;
                 hasAdmin();
                 showAndHide();
             }
         });
     }
     function showAndHide() {
-        $.get("http://localhost:8080/rest/user/hasSign", function (data,status) {
+        $.get("http://localhost:8080/rest/user/hasSign", function (data, status) {
 //            alert(data+"  "+status);
-            flag=data;
+            flag = data;
         });
-//        alert(flag);
-//        alert("flag"+flag);
-        if(flag ){
+        if (flag) {
             $("#signup-btn").hide();
             $("#signin-btn").hide();
-        }else {
+        } else {
             $("#signup-btn").show();
             $("#signin-btn").show();
-            $.post("localhost:8080/rest/user/init",function (data,status) {
+            $.post("localhost:8080/rest/user/init", function (data, status) {
                 console.log("init done");
             })
         }
-        $.get("http://localhost:8080/rest/resource/get",function (data,status) {
-            resources=data;
+        $.get("http://localhost:8080/rest/resource/get", function (data, status) {
+            resources = data;
 //            console.log(resources);
         });
         console.log(resources.length);
         console.log(resources);
         $("#resource-container").empty();
-        for(let i=0;i<=resources.length;++i){
+        for (let i = 0; i <= resources.length; ++i) {
             console.log(i);
-            $("#resource-container").append("\<a class=\"list-group-item\" data-addtab="+JSON.stringify(resources[i])+"\>"+resources[i].title+"\</a\>");
+            $("#resource-container").append("\<a class=\"list-group-item\" data-addtab=" + JSON.stringify(resources[i]) + "\>" + resources[i].title + "\</a\>");
         }
     }
     function enableAdmin() {
 //        alert("enableAdmin");
-        var dataToPost={};
+        var dataToPost = {};
         console.log($("#isAdmin").prop("checked"));
-        if ($("#isAdmin").prop("checked")){
+        if ($("#isAdmin").prop("checked")) {
             dataToPost = {
-                "roleName":"admin"
+                "roleName": "admin"
             }
-        }else {
+        } else {
             dataToPost = {
-                "roleName":"user"
+                "roleName": "user"
             }
         }
         $.ajax({
-            type:"POST",
-            url:"http://localhost:8080/rest/role/changeRole",
-            contentType:"application/json",
-            dataTye:"json",
-            data:JSON.stringify(dataToPost),
-            success:function (data) {
-                user=data;
+            type: "POST",
+            url: "http://localhost:8080/rest/role/changeRole",
+            contentType: "application/json",
+            dataTye: "json",
+            data: JSON.stringify(dataToPost),
+            success: function (data) {
+                user = data;
                 hasAdmin();
                 showAndHide();
             }
@@ -267,11 +277,17 @@
         showAndHide();
     }
     $(document).ready(function () {
+        hasAdmin();
         showAndHide();
-    })
-
+    });
+    function refresh(){
+        hasAdmin();
+        showAndHide();
+        setTimeout("refresh()",1000);
+    }
+    refresh();
     function getRole() {
-        $.get("http://localhost:8080/rest/user/curRole",function (data,status) {
+        $.get("http://localhost:8080/rest/user/curRole", function (data, status) {
             alert(data.roleName);
         })
     }

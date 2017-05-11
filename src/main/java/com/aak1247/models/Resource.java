@@ -12,6 +12,10 @@ public class Resource {
     private String id;
     private String title;
     private Object resourceBody;
+    private String target;
+    private String content;
+    private String url;
+    private boolean ajax;
 
     public String getTitle() {
         return title;
@@ -20,11 +24,6 @@ public class Resource {
     public void setTitle(String title) {
         this.title = title;
     }
-
-    private String target;
-    private String content;
-    private String url;
-    private boolean ajax;
 
     public Object getResourceBody() {
         return resourceBody;

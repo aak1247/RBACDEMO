@@ -40,7 +40,6 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
  * 通过sessisonAtrs设定session
  * 通过content设定请求体
  * 通过andExpect进行响应的断言测试
- *
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)  //使用junit4进行测试

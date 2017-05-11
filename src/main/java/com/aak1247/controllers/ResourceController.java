@@ -9,7 +9,10 @@ import com.aak1247.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -49,14 +52,11 @@ public class ResourceController {
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     public ResponseEntity getResource(HttpSession httpSession) {
-        if (httpSession.getAttribute("userId") == null) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        User user = userRepository.findOne(httpSession.getAttribute("userId").toString());
-        if (user == null) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        if(httpSession.getAttribute("role")==null){
+            httpSession.setAttribute("role",roleRepository.findOneByRoleName("guest").getRoleId());
+        }
         Role role = roleRepository.findOne(httpSession.getAttribute("role").toString());
         if (role == null) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-
-//        if (!role.getResourceList().contains(id)) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-//        Resource resource = resourceRepository.findOneById(id);
         List<Resource> resources = role.getResourceList().stream()
                 .map(resourceRepository::findOneById).collect(Collectors.toList());
         return new ResponseEntity<>(resources, HttpStatus.OK);

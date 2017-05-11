@@ -33,14 +33,14 @@ public class UserController {
     public ResponseEntity signup(@RequestBody User user) {
         if (userRepository.findOneByUsername(user.getUsername()) != null)
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        System.out.println(user.getUsername()+"signup");
+        System.out.println(user.getUsername() + "signup");
         userRepository.insert(user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "signin", method = RequestMethod.POST)
     public ResponseEntity signin(@RequestBody Passport passport, HttpSession httpSession) {
-        System.out.println(passport.username+"signin");
+        System.out.println(passport.username + "signin");
         User curUser = userRepository.findOneByUsername(passport.username);
         if (curUser == null || !curUser.isRightPassword(passport.password)) {
             System.out.println(passport.username + "," + passport.password);
@@ -51,15 +51,16 @@ public class UserController {
         return new ResponseEntity<>(curUser, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/hasSign",method = RequestMethod.GET)
-    public ResponseEntity hasSign(HttpSession httpSession){
+    @RequestMapping(value = "/hasSign", method = RequestMethod.GET)
+    public ResponseEntity hasSign(HttpSession httpSession) {
         System.out.println(httpSession.getAttributeNames());
         System.out.println(httpSession.getAttribute("userId"));
         System.out.println(httpSession.getAttribute("role"));
-        boolean flag = httpSession.getAttribute("userId")!=null;
+        boolean flag = httpSession.getAttribute("userId") != null;
         System.out.println(flag);
-        return new ResponseEntity<>(flag,HttpStatus.OK);
+        return new ResponseEntity<>(flag, HttpStatus.OK);
     }
+
     @RequestMapping(value = "/hasRole", method = RequestMethod.GET)
     public ResponseEntity hasRole(@RequestParam String roleName, HttpSession httpSession) {
         if (httpSession.getAttribute("userId") == null) {
@@ -85,17 +86,17 @@ public class UserController {
     }
 
     @RequestMapping("/curRole")
-    public ResponseEntity getCurRole(HttpSession httpSession ){
+    public ResponseEntity getCurRole(HttpSession httpSession) {
 //        if (httpSession.getAttribute("userId") == null) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         String roleId = httpSession.getAttribute("role").toString();
         if (roleId == null) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         Role currRole = roleRepository.findOne(roleId);
         System.out.println(currRole.getRoleName());
-        return new ResponseEntity<>(currRole,HttpStatus.OK);
+        return new ResponseEntity<>(currRole, HttpStatus.OK);
     }
 
     @RequestMapping("/showUsers")
-    public ResponseEntity showUsers(HttpSession httpSession){
+    public ResponseEntity showUsers(HttpSession httpSession) {
         if (httpSession.getAttribute("userId") == null) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         String roleId = httpSession.getAttribute("role").toString();
         if (roleId == null) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
@@ -103,12 +104,12 @@ public class UserController {
         if (currRole == null || !currRole.getRoleName().equals("admin"))
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         List<User> users = userRepository.findAll();
-        return new ResponseEntity<>(users,HttpStatus.OK);
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/init",method = RequestMethod.POST)
-    public ResponseEntity init(HttpSession httpSession){
-        httpSession.setAttribute("role",roleRepository.findOneByRoleName("guest").getRoleId());
+    @RequestMapping(value = "/init", method = RequestMethod.POST)
+    public ResponseEntity init(HttpSession httpSession) {
+        httpSession.setAttribute("role", roleRepository.findOneByRoleName("guest").getRoleId());
         return new ResponseEntity(HttpStatus.OK);
     }
 }

@@ -54,8 +54,8 @@ public class RoleController {
         return new ResponseEntity<>(role, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/addResource",method = RequestMethod.POST)
-    public ResponseEntity addResource(@RequestBody Role role,HttpSession httpSession){
+    @RequestMapping(value = "/addResource", method = RequestMethod.POST)
+    public ResponseEntity addResource(@RequestBody Role role, HttpSession httpSession) {
         if (httpSession.getAttribute("userId") == null) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         String roleId = httpSession.getAttribute("role").toString();
         if (roleId == null) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
@@ -63,11 +63,11 @@ public class RoleController {
         if (currRole == null || !currRole.getRoleName().equals("admin"))
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         Role roleFound = roleRepository.findOneByRoleName(role.getRoleName());
-        if (roleFound == null)return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if (roleFound == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         roleFound.getResourceList().addAll(role.getResourceList());
         roleRepository.save(roleFound);
         System.out.println("resource added to role");
-        return new ResponseEntity<>(roleFound,HttpStatus.OK);
+        return new ResponseEntity<>(roleFound, HttpStatus.OK);
     }
 
 
